@@ -1,0 +1,22 @@
+server:
+  port: 8085
+  
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:8080/eureka
+ 
+spring:
+  application:
+    name: api-gateway
+  cloud:
+    gateway:
+      routes:
+      - id: user
+        uri: lb://BANK-APPLICATION-SERVICE
+        predicates:
+        - Path=/bankapplication/**
+      - id: order
+        uri: lb://GPAY-SERVICE
+        predicates:
+        - Path=/gpay/**
